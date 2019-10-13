@@ -1,23 +1,21 @@
 /* Read input from STDIN. Print your output to STDOUT*/
 #include <bits/stdc++.h>
 using namespace std;
-void push_digits(int num,set<int>&dig)
+void push_digits(string num,set<int>&dig)
 {
-    while(num>0)
+    for(int i=0;i<num.length();i++)
     {
-        int d=num%10;
+        int d=num[i]-'0';
         dig.insert(d);
-        num=num/10;
     }
 }
-bool check_digits(int num,set<int>&dig)
+bool check_digits(string num,set<int>&dig)
 {
-    while(num>0)
+    for(int i=0;i<num.length();i++)
     {
-        int d=num%10;
+        int d=num[i]-'0';
         if(dig.find(d)!=dig.end())
             return 0;
-        num=num/10;
     }
     return 1;
 }
@@ -27,13 +25,14 @@ int main(int argc, char *a[])
     cin>>t;
     while(t--)
     {
-        int n,num;
+        int n;
         cin>>n;
-        vector<int>a;
+        string s;
+        vector<string>a;
         for(int i=0;i<n;i++)
         {
-            cin>>num;
-            a.push_back(num);
+            cin>>s;
+            a.push_back(s);
         }
         sort(a.begin(),a.end());
         long long int max_sum=0;
@@ -41,14 +40,19 @@ int main(int argc, char *a[])
         {
             set<int>dig;
             push_digits(a[i],dig);
-            long long int sum=a[i];
+            int x;
+            stringstream ss(a[i]);
+            ss>>x;
+            long long int sum=x;
             for(int j=n-1;j>=0;j--)
             {
                 if(i==j)
                     continue;
                 if(check_digits(a[j],dig))
                 {
-                    sum+=a[j];
+                    stringstream ss(a[j]);
+                    ss>>x;
+                    sum+=x;
                     push_digits(a[j],dig);
                 }
             }
