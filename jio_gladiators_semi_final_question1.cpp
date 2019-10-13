@@ -1,4 +1,9 @@
-/* Read input from STDIN. Print your output to STDOUT*/
+/* Question
+Rannvijay explains the task to you - "There are N boxes placed in a horizontal line infront of you with each box having a positive integer written on it.
+You have to tell me the maximum sum which can be formed by choosing the subset of boxes. Simple. But it is Roadies, so it can't be that simple.
+You have to tell me the maximum sum but the subset of boxes should not have any digit in common. 
+
+*/
 #include <bits/stdc++.h>
 using namespace std;
 void push_digits(int num,set<int>&dig)
@@ -44,7 +49,7 @@ int main(int argc, char *a[])
             long long int sum=a[i];
             for(int j=n-1;j>=0;j--)
             {
-                if(i==j)
+                if(i==j||a[i]==a[j])
                     continue;
                 if(check_digits(a[j],dig))
                 {
