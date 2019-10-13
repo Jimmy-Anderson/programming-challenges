@@ -1,4 +1,5 @@
 #include<bits/stdc++.h>
+#include<string>
 #define lli long long int
 #define rep(i,a,b) for(long long int i=a;i<b;i+=1)
 #define repd(i,a,b) for(long long int i=a;i>=b;i-=1)
@@ -6,40 +7,51 @@
 #define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);
 #define mod 1000000007
 using namespace std;
-int check(int a,int b)
-{
-	set<int>s;
-	if(a==0||b==0)
-		s.insert(0);
-	while(a>0)
-	{
-		s.insert(a%10);
-		a/=10;
-	}
-	while(b>0)
-	{
-		s.insert(b%10);
-		b/=10;
-	}
-	if(s.size()==2)
-		return 1;
-	else 
-		return 0;
-}
+
+// int digsum(lli n)
+// {
+// 	int sum=0;
+// 	while(n>0)
+// 	{
+// 		sum+=n%10;
+// 		n/=10;
+// 	}
+// 	return sum;
+// }
 int main()
 {
-	//vector<int>v;
-	int count=0;
-	int num=99999;
-	for(int i=0;i<=num;i++)
-	{
-		if(check(i,num-i))
-			cout<<++count<<" "<<i<<" "<<num-i<<"\n";
-	}
-	// //test()
+	// vector<lli>v;
+	// v.push_back(0);
+	// for(lli i=1;i<=10000000000000000;i++)
 	// {
-	// 	//int n;
-	// 	//cin>>n;
-	// 	//cout<<v[n]<<"\n";
+	// 	if(digsum(i)%10==0)
+	// 		v.push_back(i);
 	// }
+	test()
+	{
+		lli n;
+		cin>>n;
+		stringstream ss;
+		ss<<n;
+		string ans=ss.str();
+		lli digsum=0;
+		lli a=n;
+		while(a>0)
+		{
+			digsum+=(a%10);
+			a/=10;
+		}
+		lli last_digit=0;
+		for(lli i=0;i<=9;i++)
+		{
+			if(((digsum+i)%10)==0)
+			{
+				last_digit=i;
+				break;
+			}
+		}
+		ans=ans+to_string(last_digit);
+		cout<<ans<<"\n";
+	}
+	
 }

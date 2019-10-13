@@ -23,28 +23,20 @@ int main()
 			else if(s[i]=='A')
 				ca++;
 		}
-		int count =0;
-		int required=0.75*l;
-		required=l%4==0?required:required+1;
-		if(l<=4&&cp<required)
-			count=-1;
-		else if(l>4)
+		int count=0;
+		for(int i=2;i<l-2;i++)
 		{
-			for(int i=2;i<l-2;i++)
+			if(((float)cp/(float)l)>=0.75)
+				break;
+			if(s[i]=='A'&&(s[i-1]=='P'||s[i-2]=='P')&&(s[i+1]=='P'||s[i+2]=='P'))
 			{
-				if((cp+cq)>=required)
-					break;
-				if(s[i]=='A'&&(s[i-1]=='P'||s[i-2]=='P')&&(s[i+1]=='P'||s[i+2]=='P'))
-				{
-					count++;
-					ca--;
-					cq++;
-					s[i]=='Q';
-				}
+				count++;
+				cp++;
+				ca--;
 			}
-			if((cp+cq)<required)
-				count=-1;
 		}
+		if(((float)cp/(float)l)<0.75)
+			count=-1;
 		cout<<count<<"\n";
 	}
 }
