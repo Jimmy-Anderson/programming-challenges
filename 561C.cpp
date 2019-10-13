@@ -12,18 +12,28 @@ int main()
 	cin>>n;
 	lli a[n];
 	rep(i,0,n)
+	{
 		cin>>a[i];
-	int x=0;
-	rep(i,0,n-1)
-		rep(j,i+1,n)
+		a[i]=abs(a[i]);
+	}
+	sort(a,a+n);
+	int i,j,mid;
+	int count=0;
+	//it will be nlogn
+	for(r=n-1;r>=0;r--)
+	{
+		i=0;j=r;
+		while(i<j)
 		{
-			lli mina,maxa,minv,maxv;
-			mina=min(abs(a[i]),abs(a[j]));
-			maxa=max(abs(a[i]),abs(a[j]));
-			minv=min(abs(a[i]+a[j]),abs(a[j]-a[i]));
-			maxv=max(abs(a[i]+a[j]),abs(a[j]-a[i]));
-			if(mina>=minv&&maxa<=maxv)
-				x++;
+            mid=(i+j)/2;
+			if(a[r]==2*a[mid])
+				break;
+			else if(a[r]>2*a[mid])
+				i=mid+1;
+			else
+				j=mid-1;
 		}
-	cout<<x<<"\n";
+		count+=(j-mid);
+	}
+	cout<<count<<"\n";
 }
