@@ -8,32 +8,26 @@
 using namespace std;
 int main()
 {
-	int n,r;
+	int n;
 	cin>>n;
-	lli a[n];
-	rep(i,0,n)
+	int arr[3];
+	for(int i=0;i<3;i++)
+		cin>>arr[i];
+	int dp[n+1];
+	for(int i=1;i<=n;i++)
+		dp[i]=INT_MIN;
+	dp[0]=0;
+	for(int i=1;i<=n;i++)
 	{
-		cin>>a[i];
-		a[i]=abs(a[i]);
-	}
-	sort(a,a+n);
-	int i,j,mid;
-	int count=0;
-	//it will be nlogn
-	for(r=n-1;r>=0;r--)
-	{
-		i=0;j=r;
-		while(i<j)
+		for(int j=0;j<3;j++)
 		{
-            mid=(i+j)/2;
-			if(a[r]==2*a[mid])
-				break;
-			else if(a[r]>2*a[mid])
-				i=mid+1;
-			else
-				j=mid-1;
+			if(i>=arr[j])
+			{
+				int sub_res=dp[i-arr[j]];
+				if(sub_res!=INT_MIN&&sub_res+1>dp[i])
+					dp[i]=sub_res+1;	
+			}
 		}
-		count+=(j-mid);
 	}
-	cout<<count<<"\n";
+	cout<<dp[n]<<"\n";
 }

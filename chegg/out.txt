@@ -1,0 +1,5 @@
+Tree constructed from the file:
+Inorder: (4000,9), (6000,10), (8000,4), (9000,5), (10000,2), (11000,1), (13000,2),
+Highest Income: 13000 Total people with highest income: 2
+Total number of single children in the tree: 2
+Total income in the area: 230000
