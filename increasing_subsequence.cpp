@@ -6,15 +6,6 @@
 #define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);
 #define mod 1000000007
 using namespace std;
-char check_duplicates(vector<int>&arr,int start,int end)
-{
-	int start2=arr[start+1];
-	int end2=arr[end-1];
-	if(start2>end2)
-		return 'R';
-	else
-		return 'L';
-}
 int main()
 {
 	int n,num;
@@ -34,27 +25,11 @@ int main()
 		moves.push_back('L');
 		start++;
 	}
-	else if(arr[start]>arr[end])
+	else
 	{
 		sequence.push_back(arr[end]);
 		moves.push_back('R');
 		end--;
-	}
-	else
-	{
-		char c=check_duplicates(arr,start,end);
-		if(c=='R')
-		{
-			sequence.push_back(arr[end]);
-			moves.push_back('R');
-			end--;
-		}
-		else
-		{
-			sequence.push_back(arr[start]);
-			moves.push_back('L');
-			start++;
-		}
 	}
 	while(start<=end)
 	{
@@ -69,27 +44,11 @@ int main()
 				moves.push_back('L');
 				start++;
 			}
-			else if(arr[start]>arr[end])
+			else
 			{
 				sequence.push_back(arr[end]);
 				moves.push_back('R');
 				end--;
-			}
-			else
-			{
-				char c=check_duplicates(arr,start,end);
-				if(c=='R')
-				{
-					sequence.push_back(arr[end]);
-					moves.push_back('R');
-					end--;
-				}
-				else
-				{
-					sequence.push_back(arr[start]);
-					moves.push_back('L');
-					start++;
-				}
 			}
 		}
 		else if(arr[start]<key&&arr[end]>key)

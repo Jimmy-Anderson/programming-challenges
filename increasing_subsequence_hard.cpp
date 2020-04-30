@@ -6,106 +6,67 @@
 #define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);
 #define mod 1000000007
 using namespace std;
-char check_duplicates(vector<int>&arr,int start,int end)
-{
-	int start2=arr[start+1];
-	int end2=arr[end-1];
-	if(start2>end2)
-		return 'R';
-	else
-		return 'L';
-}
+
 int main()
 {
 	int n,num;
 	cin>>n;
-	vector<int> arr;
+	vector<int> a;
 	vector<int>sequence;
 	vector<char>moves;
 	for(int i=0;i<n;i++)
 	{
 		cin>>num;
-		arr.push_back(num);
+		a.push_back(num);
 	}
-	int start=0,end=n-1;
-	if(arr[start]<arr[end])
+	string res;
+	int last=0;
+	int l=0,r=n-1;
+	while(l<=r)
 	{
-		sequence.push_back(arr[start]);
-		moves.push_back('L');
-		start++;
-	}
-	else if(arr[start]>arr[end])
-	{
-		sequence.push_back(arr[end]);
-		moves.push_back('R');
-		end--;
-	}
-	else
-	{
-		char c=check_duplicates(arr,start,end);
-		if(c=='R')
+		vector< pair<int,char> >cur;
+		if(last<a[l])
+			cur.push_back({a[l],'L'});
+		if(last<a[r])
+			cur.push_back({a[r],'R'});
+		sort(cur.begin(),cur.end());
+		if(int(cur.size())==2&&cur[0].first!=cur[1].first)
 		{
-			sequence.push_back(arr[end]);
-			moves.push_back('R');
-			end--;
+			cur.pop_back();
 		}
-		else
+		if(int(cur.size())==1)
 		{
-			sequence.push_back(arr[start]);
-			moves.push_back('L');
-			start++;
-		}
-	}
-	while(start<=end)
-	{
-		int key=sequence[sequence.size()-1];
-		if(arr[start]<=key&&arr[end]<=key)
-			break;
-		else if(arr[start]>key&&arr[end]>key)
-		{
-			if(arr[start]<arr[end])
+			if(cur[0].second=='L')
 			{
-				sequence.push_back(arr[start]);
-				moves.push_back('L');
-				start++;
-			}
-			else if(arr[start]>arr[end])
-			{
-				sequence.push_back(arr[end]);
-				moves.push_back('R');
-				end--;
+				res+="L";
+				last=a[l];
+				++l;
 			}
 			else
 			{
-				char c=check_duplicates(arr,start,end);
-				if(c=='R')
-				{
-					sequence.push_back(arr[end]);
-					moves.push_back('R');
-					end--;
-				}
-				else
-				{
-					sequence.push_back(arr[start]);
-					moves.push_back('L');
-					start++;
-				}
+				res+="R";
+				last=a[r];
+				--r;
 			}
 		}
-		else if(arr[start]<=key&&arr[end]>key)
+		else if(int(cur.size())==2)
 		{
-			sequence.push_back(arr[end]);
-			moves.push_back('R');
-			end--;
+			int cl=1,cr=1;
+			while(cl+l<=r && a[l+cl]>a[cl+l-1])
+				++cl;
+			while(r-cr>=l && a[r-cr]>a[r-cr+1])
+				++cr;
+			if(cl>cr)
+			{
+				res+=string(cl,'L');
+			}
+			else
+				res+=string(cr,'R');
+			break;
 		}
-		else if(arr[start]>key&&arr[end]<=key)
-		{
-			sequence.push_back(arr[start]);
-			moves.push_back('L');
-			start++;
-		}
+		else
+			break;
+
 	}
-	cout<<moves.size()<<"\n";
-	for(int i=0;i<moves.size();i++)
-		cout<<moves[i];
+	 cout<<res.size()<<"\n"<<res<<"\n";
 }
