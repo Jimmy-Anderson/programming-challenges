@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset ="UTF-8">
+	<title>Lab Quiz #2</title>
+	<style>
+		body{
+			text-align: center;
+		}
+		img{
+			display: none;
+		}
+	</style>
+	<script>
+		var items=[];
+		var count=0;
+		var total=0;
+		function calculate(){
+			var price=parseInt(document.getElementById('price').value);
+			var item=document.getElementById('Sample Item').value;
+			total=total+price;
+			count++;
+			var pobj=document.getElementById('resulttxt');
+			pobj.innerHTML+=("<pre>"+item+" "+price+"</pre>");
+			document.getElementById('total').value=total;
+			document.getElementById('count').value=count;
+			document.getElementById('Sample Item').value="";
+			document.getElementById('price').value='';
+			var pobj=document.getElementById('resulttxt');
+			if(total>100){
+				document.getElementById('pinImg').style.display="block";
+				document.getElementById('nopinImg').style.display="none";	
+			}
+			else{
+				document.getElementById('pinImg').style.display="none";
+				document.getElementById('nopinImg').style.display="block";
+			}
+
+		}
+	</script>
+</head>
+<body>
+	<form action="#" onsubmit="Javascript:calculate()">
+		<p>Item<input type="text" id="Sample Item" value="Sample Item">Price:<input type="text" id="price"><input type="submit" id="submitBtn" value="Add Item"></p>
+		<p>Total:<input type="text" id="total" value="0"></p>
+		<p># of Items: <input type="text" id="count" value="0"></p>
+	</form>
+	<hr>
+	<div id="content">
+		<p id="resulttxt" class="txt">Please add items.</p>
+		<img id="pinImg" src="pin.jpg" alt="You need to write your PIN to proceed with the payment" >
+		<img id="nopinImg" src="nopin.jpg" alt="You don't need to write your PIN to proceed with the payment" >
+	</div>
+</body>
+</html>
