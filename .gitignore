@@ -1,2 +1,5 @@
-a.exe
-desktop
+*.exe
+*.out
+test/
+.vscode/
+*.txt
